@@ -1,4 +1,4 @@
-package fj11.conta;
+package br.com.david.conta;
 
 class ContaCorrente extends Conta{
 

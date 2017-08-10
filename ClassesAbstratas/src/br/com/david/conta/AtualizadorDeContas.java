@@ -1,4 +1,4 @@
-package fj11.conta;
+package br.com.david.conta;
 
 public class AtualizadorDeContas {
     private double saldoTotal = 0;

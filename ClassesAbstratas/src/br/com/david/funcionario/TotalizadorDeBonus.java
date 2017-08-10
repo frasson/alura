@@ -1,4 +1,4 @@
-package fj11.funcionario;
+package br.com.david.funcionario;
 
 public class TotalizadorDeBonus {
 	private double total = 0;

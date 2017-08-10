@@ -1,4 +1,4 @@
-package fj11.conta;
+package br.com.david.conta;
 
 public abstract class Conta {
     protected double saldo;
@@ -11,6 +11,10 @@ public abstract class Conta {
         this.saldo += valor;
     }
 
+    /**
+     * 
+     * @param valor
+     */
     public void saca(double valor) {
         this.saldo -= valor;
     }

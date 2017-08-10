@@ -1,4 +1,4 @@
-package fj11.funcionario;
+package br.com.david.funcionario;
 
 abstract class Funcionario {
 	private String nome;
