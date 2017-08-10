@@ -1,4 +1,4 @@
-package interfaces.exercicio02;
+package br.com.david.conta;
 
 /*
  * Quanto menos acoplado o código, mais fácil é sua manutenção, já que alterar uma classe não deve atrapalhar o 

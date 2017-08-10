@@ -1,4 +1,4 @@
-package interfaces.exercicio01;
+package br.com.david.figuras;
 
 interface AreaCalculavel {
 	

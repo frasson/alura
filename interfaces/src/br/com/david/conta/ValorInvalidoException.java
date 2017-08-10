@@ -1,4 +1,4 @@
-package interfaces.exercicio02;
+package br.com.david.conta;
 
 public class ValorInvalidoException extends RuntimeException {
 
