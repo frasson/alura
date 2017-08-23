@@ -37,13 +37,28 @@ public abstract class Conta {
     
     @Override
     public String toString() {
-    	return "esse objeto é uma conta com saldo R$" + this.saldo;
+    	return "esse objeto é uma conta do " + this.nomeDoCliente + " com saldo R$" + this.saldo;
     }
     
     @Override
-    public boolean equals(Object obj) {
-    	Conta outraConta = (Conta) obj;
-    	return (this.numero == outraConta.numero && 
-    			this.nomeDoCliente.equals(outraConta.nomeDoCliente)) ;
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + numero;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Conta other = (Conta) obj;
+		if (numero != other.numero)
+			return false;
+		return true;
+	}     
 }

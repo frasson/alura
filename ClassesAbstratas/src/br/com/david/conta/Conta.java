@@ -2,8 +2,17 @@ package br.com.david.conta;
 
 public abstract class Conta {
     protected double saldo;
+    protected int numero;
 
-    public double getSaldo() {
+    public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public double getSaldo() {
         return this.saldo;
     }
 
