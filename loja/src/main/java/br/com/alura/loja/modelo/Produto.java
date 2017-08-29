@@ -4,11 +4,11 @@ package br.com.alura.loja.modelo;
 public class Produto {
 
 	private double preco;
-	private long id;
+	private Long id;
 	private String nome;
 	private int quantidade;
 	
-	public Produto(long id, String nome, double preco, int quantidade) {
+	public Produto(Long id, String nome, double preco, int quantidade) {
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
@@ -19,7 +19,7 @@ public class Produto {
 		return preco;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 

@@ -13,8 +13,8 @@ public class CarrinhoDAO {
 	private static AtomicLong contador = new AtomicLong(1);
 	
 	static {
-		Produto videogame = new Produto(6237, "Videogame 4", 4000, 1);
-		Produto esporte = new Produto(3467, "Jogo de esporte", 60, 2);
+		Produto videogame = new Produto(6237L, "Videogame 4", 4000, 1);
+		Produto esporte = new Produto(3467L, "Jogo de esporte", 60, 2);
 		Carrinho carrinho = new Carrinho()
 								.adiciona(videogame)
 								.adiciona(esporte)
@@ -24,7 +24,7 @@ public class CarrinhoDAO {
 	}
 	
 	public void adiciona(Carrinho carrinho) {
-		long id = contador.incrementAndGet();
+		Long id = contador.incrementAndGet();
 		carrinho.setId(id);
 		banco.put(id, carrinho);
 	}
@@ -33,7 +33,7 @@ public class CarrinhoDAO {
 		return banco.get(id);
 	}
 	
-	public Carrinho remove(long id) {
+	public Carrinho remove(Long id) {
 		return banco.remove(id);
 	}
 
