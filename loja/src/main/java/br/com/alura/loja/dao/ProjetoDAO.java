@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import br.com.alura.loja.modelo.Projeto;
+import br.com.alura.loja.modelo.Produto;
 
 public class ProjetoDAO {
 
@@ -26,7 +27,8 @@ public class ProjetoDAO {
         return banco.get(id);
     }
 
-    public Projeto remove(Long id) {
+    public Projeto remove(long id) {
         return banco.remove(id);
     }
+
 }

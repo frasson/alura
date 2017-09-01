@@ -1,28 +1,33 @@
 package br.com.alura.loja.modelo;
 
-import com.google.gson.Gson;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.thoughtworks.xstream.XStream;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Projeto {
 	private Long id;
-	private String nome;
-	private int anoDeInicio;
+	private String name;
+	private int ano;
+
+	public Projeto(long l, String string, int i) {
+		this.id = l;
+		this.name = string;
+		this.ano = i;
+	}
 
 	public Projeto() {
 	}
 
-	public Projeto(Long id, String nome, int anoDeInicio) {
-		this.id = id;
-		this.nome = nome;
-		this.anoDeInicio = anoDeInicio;
+	public String toXML() {
+		return new XStream().toXML(this);
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setId(long id2) {
+		this.id = id2;
 	}
 
 	public Long getId() {
@@ -32,21 +37,20 @@ public class Projeto {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public int getAnoDeInicio() {
-		return anoDeInicio;
+	
+	public String getName() {
+		return name;
 	}
 
-	public void setAnoDeInicio(int anoDeInicio) {
-		this.anoDeInicio = anoDeInicio;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String toXML() {
-		XStream xstream = new XStream();
-		return xstream.toXML(this);
+	public int getAno() {
+		return ano;
 	}
 
-	public String toJson() {
-		return new Gson().toJson(this);
+	public void setAno(int ano) {
+		this.ano = ano;
 	}
 }

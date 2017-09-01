@@ -20,7 +20,7 @@ public class ProjetoTest {
 
 	@Before
 	public void before() {
-		server = Servidor.inicializaServidor();
+		server = Servidor.startServer();
 	}
 
 	@After
@@ -34,7 +34,7 @@ public class ProjetoTest {
 		WebTarget target = client.target("http://localhost:8080");
 		String conteudo = target.path("/projetos/1").request().get(String.class);
 		Projeto projeto = (Projeto) new XStream().fromXML(conteudo);
-		Assert.assertEquals("Minha loja", projeto.getNome());
+		Assert.assertEquals("Minha loja", projeto.getName());
 	}
 
 }
