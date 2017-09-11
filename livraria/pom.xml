@@ -18,13 +18,13 @@
             <url>http://repository.primefaces.org</url>
             <layout>default</layout>
         </repository>
-    </repositories>    
+    </repositories>
     
     <dependencies>
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
-            <version>2.2.14</version>
+            <version>2.2.14</version>            
         </dependency>
         <dependency>
             <groupId>org.primefaces</groupId>
