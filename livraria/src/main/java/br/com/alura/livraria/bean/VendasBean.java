@@ -8,7 +8,6 @@ import java.util.Random;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
-import br.com.alura.livraria.dao.DAO;
 import br.com.alura.livraria.modelo.Livro;
 import br.com.alura.livraria.modelo.Venda;
 import javax.enterprise.context.RequestScoped;

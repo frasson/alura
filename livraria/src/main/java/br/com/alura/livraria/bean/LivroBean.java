@@ -1,16 +1,15 @@
 package br.com.alura.livraria.bean;
 
+import br.com.alura.alura_lib.dao.DAO;
 import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
-import br.com.alura.livraria.dao.DAO;
 import br.com.alura.livraria.modelo.Autor;
 import br.com.alura.livraria.modelo.Livro;
 import javax.inject.Named;
@@ -20,12 +19,11 @@ import javax.inject.Named;
 public class LivroBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     private Livro livro = new Livro();
-
     private Integer autorId;
-
-    private List<Livro> livros;
+    private List<Livro> livros;    
+    private DAO<Autor> autorDao;    
+    private DAO<Livro> livroDao;
 
     public void setAutorId(Integer autorId) {
         this.autorId = autorId;
