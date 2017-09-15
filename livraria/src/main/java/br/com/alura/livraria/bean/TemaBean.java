@@ -3,7 +3,6 @@ package br.com.alura.livraria.bean;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 
-import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 
 @Named

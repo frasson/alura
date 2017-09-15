@@ -1,5 +1,6 @@
 package br.com.alura.livraria.bean;
 
+import br.com.alura.alura_lib.dao.DAO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +11,23 @@ import org.primefaces.model.chart.ChartSeries;
 
 import br.com.alura.livraria.modelo.Livro;
 import br.com.alura.livraria.modelo.Venda;
-import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class VendasBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private DAO<Livro> livroDao;    
+    
+    @Inject
+    public VendasBean(DAO<Livro> livroDao) {
+        this.livroDao = livroDao;
+    }
+    
     public BarChartModel getVendasModel() {
 
         BarChartModel model = new BarChartModel();
@@ -48,7 +57,7 @@ public class VendasBean implements Serializable {
 
     public List<Venda> getVendas(long seed) {
 
-        List<Livro> livros = new DAO<Livro>(Livro.class).listaTodos();
+        List<Livro> livros = this.livroDao.listaTodos();
         List<Venda> vendas = new ArrayList<Venda>();
 
         Random random = new Random(seed);
