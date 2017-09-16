@@ -32,6 +32,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.196</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>4.3.0.Final</version>
@@ -48,12 +54,6 @@
             <artifactId>primefaces</artifactId>
             <version>5.3</version>
         </dependency>
-        
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.196</version>
-        </dependency>
 
         <dependency>
             <groupId>org.jboss.weld.servlet</groupId>
@@ -65,6 +65,7 @@
             <groupId>br.com.alura</groupId>
             <artifactId>alura-lib</artifactId>
             <version>1.0</version>
+            <type>jar</type>
         </dependency>
 
     </dependencies>
@@ -84,7 +85,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>                
+                <version>2.6</version>
             </plugin>
         </plugins>
     </build>

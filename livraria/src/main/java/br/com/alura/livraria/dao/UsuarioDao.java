@@ -1,11 +1,11 @@
 package br.com.alura.livraria.dao;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import br.com.alura.livraria.modelo.Usuario;
-import javax.inject.Inject;
 
 public class UsuarioDao {
 

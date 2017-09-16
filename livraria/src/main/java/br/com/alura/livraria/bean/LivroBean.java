@@ -1,115 +1,131 @@
 package br.com.alura.livraria.bean;
 
-import br.com.alura.alura_lib.dao.DAO;
 import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.view.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
-
-import br.com.alura.livraria.modelo.Autor;
-import br.com.alura.livraria.modelo.Livro;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import br.com.alura.alura_lib.dao.DAO;
+import br.com.alura.alura_lib.tx.annotation.Transacional;
+import br.com.alura.livraria.modelo.Autor;
+import br.com.alura.livraria.modelo.Livro;
 
 @Named
 @ViewScoped
 public class LivroBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    private Livro livro = new Livro();
-    private Integer autorId;
-    private DAO<Autor> autorDao;
-    private DAO<Livro> livroDao;
+	private static final long serialVersionUID = 1L;
 
-    @Inject
-    public LivroBean(DAO<Livro> livroDao, DAO<Autor> autorDao) {
-        this.livroDao = livroDao;
-        this.autorDao = autorDao;
-    }
+	private Livro livro = new Livro();
 
-    public void setAutorId(Integer autorId) {
-        this.autorId = autorId;
-    }
+	private Integer autorId;
 
-    public Integer getAutorId() {
-        return autorId;
-    }
+	private List<Livro> livros;
 
-    public Livro getLivro() {
-        return livro;
-    }
+	private DAO<Autor> autorDao;
 
-    public List<Livro> getLivros() {
-        return this.livroDao.listaTodos();
-    }
+	private DAO<Livro> livroDao;
 
-    public List<Autor> getAutores() {
-        return this.autorDao.listaTodos();
-    }
+	@Inject
+	public LivroBean(DAO<Livro> livroDao, DAO<Autor> autorDao){
+		this.livroDao = livroDao;
+		this.autorDao = autorDao;
+	}
+	
+	public void setAutorId(Integer autorId) {
+		this.autorId = autorId;
+	}
 
-    public List<Autor> getAutoresDoLivro() {
-        return this.livro.getAutores();
-    }
+	public Integer getAutorId() {
+		return autorId;
+	}
 
-    public void carregarLivroPelaId() {
-        this.livro = this.livroDao.buscaPorId(this.livro.getId());
-    }
+	public Livro getLivro() {
+		return livro;
+	}
 
-    public void gravarAutor() {
-        Autor autor = this.autorDao.buscaPorId(this.autorId);
-        this.livro.adicionaAutor(autor);
-        System.out.println("Escrito por: " + autor.getNome());
-    }
+	public List<Livro> getLivros() {
+		
+		if(this.livros == null) {
+			this.livros = livroDao.listaTodos();
+		}
+		return livros;
+	}
 
-    public void gravar() {
-        System.out.println("Gravando livro " + this.livro.getTitulo());
+	public List<Autor> getAutores() {
+		return autorDao.listaTodos();
+	}
 
-        if (livro.getAutores().isEmpty()) {
-            FacesContext.getCurrentInstance().addMessage("autor",
-                    new FacesMessage("Livro deve ter pelo menos um Autor."));
-            return;
-        }
+	public List<Autor> getAutoresDoLivro() {
+		return this.livro.getAutores();
+	}
 
-        if (this.livro.getId() == null) {
-            this.livroDao.adiciona(this.livro);
-        } else {
-            this.livroDao.atualiza(this.livro);
-        }
+	public void carregarLivroPelaId() {
+		this.livro = livroDao.buscaPorId(this.livro.getId()); 
+	}
+	
+	public void gravarAutor() {
+		Autor autor = autorDao.buscaPorId(this.autorId);
+		this.livro.adicionaAutor(autor);
+		System.out.println("Escrito por: " + autor.getNome());
+	}
 
-        this.livro = new Livro();
-    }
+	@Transacional
+	public void gravar() {
+		System.out.println("Gravando livro " + this.livro.getTitulo());
 
-    public void remover(Livro livro) {
-        System.out.println("Removendo livro");
-        this.livroDao.remove(livro);
-    }
+		if (livro.getAutores().isEmpty()) {
+			FacesContext.getCurrentInstance().addMessage("autor",
+					new FacesMessage("Livro deve ter pelo menos um Autor."));
+			return;
+		}
 
-    public void removerAutorDoLivro(Autor autor) {
-        this.livro.removeAutor(autor);
-    }
+		
+		if(this.livro.getId() == null) {
+			livroDao.adiciona(this.livro);
+			this.livros = livroDao.listaTodos();
+		} else {
+			livroDao.atualiza(this.livro);
+		}
 
-    public void carregar(Livro livro) {
-        System.out.println("Carregando livro");
-        this.livro = livro;
-    }
+		this.livro = new Livro();
+	}
 
-    public String formAutor() {
-        System.out.println("Chamanda do formulário do Autor.");
-        return "autor?faces-redirect=true";
-    }
+	@Transacional
+	public void remover(Livro livro) {
+		System.out.println("Removendo livro");
+		livroDao.remove(livro);
+		this.livros = livroDao.listaTodos();
+	}
+	
+	public void removerAutorDoLivro(Autor autor) {
+		this.livro.removeAutor(autor);
+	}
+	
+	public void carregar(Livro livro) {
+		System.out.println("Carregando livro");
+		this.livro = livro;
+	}
+	
+	public String formAutor() {
+		System.out.println("Chamanda do formulário do Autor.");
+		return "autor?faces-redirect=true";
+	}
 
-    public void comecaComDigitoUm(FacesContext fc, UIComponent component,
-            Object value) throws ValidatorException {
+	public void comecaComDigitoUm(FacesContext fc, UIComponent component,
+			Object value) throws ValidatorException {
 
-        String valor = value.toString();
-        if (!valor.startsWith("1")) {
-            throw new ValidatorException(new FacesMessage(
-                    "ISBN deveria começar com 1"));
-        }
+		String valor = value.toString();
+		if (!valor.startsWith("1")) {
+			throw new ValidatorException(new FacesMessage(
+					"ISBN deveria começar com 1"));
+		}
 
-    }
+	}
 }

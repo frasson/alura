@@ -1,23 +1,28 @@
 package br.com.alura.livraria.bean;
 
-import br.com.alura.alura_lib.dao.DAO;
 import java.io.Serializable;
 import java.util.List;
 
-import br.com.alura.livraria.modelo.Autor;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import br.com.alura.alura_lib.dao.DAO;
+import br.com.alura.alura_lib.tx.annotation.Transacional;
+import br.com.alura.livraria.modelo.Autor;
 
 @Named
 @RequestScoped
 public class AutorBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Autor autor = new Autor();
+
     private Integer autorId;
+
     private DAO<Autor> autorDao;
-    
+
     @Inject
     public AutorBean(DAO<Autor> autorDao) {
         this.autorDao = autorDao;
@@ -32,16 +37,17 @@ public class AutorBean implements Serializable {
     }
 
     public void carregarAutorPelaId() {
-        this.autor = this.autorDao.buscaPorId(autorId);
+        this.autor = autorDao.buscaPorId(autorId);
     }
 
+    @Transacional
     public String gravar() {
         System.out.println("Gravando autor " + this.autor.getNome());
 
         if (this.autor.getId() == null) {
-            this.autorDao.adiciona(this.autor);
+            autorDao.adiciona(this.autor);
         } else {
-            this.autorDao.atualiza(this.autor);
+            autorDao.atualiza(this.autor);
         }
 
         this.autor = new Autor();
@@ -49,13 +55,14 @@ public class AutorBean implements Serializable {
         return "livro?faces-redirect=true";
     }
 
+    @Transacional
     public void remover(Autor autor) {
         System.out.println("Removendo autor " + autor.getNome());
-        this.autorDao.remove(autor);
+        autorDao.remove(autor);
     }
 
     public List<Autor> getAutores() {
-        return this.autorDao.listaTodos();
+        return autorDao.listaTodos();
     }
 
     public Autor getAutor() {
