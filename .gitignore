@@ -8,3 +8,5 @@ Thumbs.db
 /bin/
 /livraria/target/
 /alura-lib/target/
+/gulp/dist/
+/gulp/node_modules/
