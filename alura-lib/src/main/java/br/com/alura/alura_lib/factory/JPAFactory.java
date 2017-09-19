@@ -12,26 +12,26 @@ import javax.persistence.Persistence;
 @ApplicationScoped
 public class JPAFactory {
 
-    private EntityManagerFactory emf = Persistence
-            .createEntityManagerFactory("livraria");
+	private EntityManagerFactory emf = Persistence
+			.createEntityManagerFactory("livraria");
 
-    @Produces
-    @RequestScoped
-    public EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
+	@Produces
+	@RequestScoped
+	public EntityManager getEntityManager() {
+		return emf.createEntityManager();
+	}
 
-    public void close(@Disposes EntityManager em) {
-        if (em.isOpen()) {
-            em.close();
-        }
-    }
-
-    @PreDestroy
-    public void preDestroy() {
-        if (emf.isOpen()) {
-            emf.close();
-        }
-    }
+	public void close(@Disposes EntityManager em) {
+		if (em.isOpen()) {
+			em.close();
+		}
+	}
+	
+	@PreDestroy
+	public void preDestroy(){
+		if (emf.isOpen()) {
+			emf.close();
+		}
+	}
 
 }

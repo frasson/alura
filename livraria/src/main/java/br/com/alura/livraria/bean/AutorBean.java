@@ -11,65 +11,68 @@ import br.com.alura.alura_lib.dao.DAO;
 import br.com.alura.alura_lib.tx.annotation.Transacional;
 import br.com.alura.livraria.modelo.Autor;
 
+
+
 @Named
 @RequestScoped
-public class AutorBean implements Serializable {
+public class AutorBean implements Serializable{
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private Autor autor = new Autor();
+	private Autor autor = new Autor();
+	
+	private Integer autorId;
 
-    private Integer autorId;
+	private DAO<Autor> autorDao;
 
-    private DAO<Autor> autorDao;
+	@Inject
+	public AutorBean(DAO<Autor> autorDao){
+		this.autorDao = autorDao;
+	}
+	
+		
+	public Integer getAutorId() {
+		return autorId;
+	}
 
-    @Inject
-    public AutorBean(DAO<Autor> autorDao) {
-        this.autorDao = autorDao;
-    }
+	public void setAutorId(Integer autorId) {
+		this.autorId = autorId;
+	}
+	
+	public void carregarAutorPelaId() {
+		this.autor = autorDao.buscaPorId(autorId);
+	}
 
-    public Integer getAutorId() {
-        return autorId;
-    }
+	@Transacional
+	public String gravar() {
+		System.out.println("Gravando autor " + this.autor.getNome());
 
-    public void setAutorId(Integer autorId) {
-        this.autorId = autorId;
-    }
+		if(this.autor.getId() == null) {
+			autorDao.adiciona(this.autor);
+		} else {
+			autorDao.atualiza(this.autor);
+		}
 
-    public void carregarAutorPelaId() {
-        this.autor = autorDao.buscaPorId(autorId);
-    }
+		this.autor = new Autor();
 
-    @Transacional
-    public String gravar() {
-        System.out.println("Gravando autor " + this.autor.getNome());
+		return "livro?faces-redirect=true";
+	}
+	
+	@Transacional
+	public void remover(Autor autor) {
+		System.out.println("Removendo autor " + autor.getNome());
+		autorDao.remove(autor);
+	}
+	
+	public List<Autor> getAutores() {
+		return autorDao.listaTodos();
+	}
+	
+	public Autor getAutor() {
+		return autor;
+	}
 
-        if (this.autor.getId() == null) {
-            autorDao.adiciona(this.autor);
-        } else {
-            autorDao.atualiza(this.autor);
-        }
-
-        this.autor = new Autor();
-
-        return "livro?faces-redirect=true";
-    }
-
-    @Transacional
-    public void remover(Autor autor) {
-        System.out.println("Removendo autor " + autor.getNome());
-        autorDao.remove(autor);
-    }
-
-    public List<Autor> getAutores() {
-        return autorDao.listaTodos();
-    }
-
-    public Autor getAutor() {
-        return autor;
-    }
-
-    public void setAutor(Autor autor) {
-        this.autor = autor;
-    }
+	public void setAutor(Autor autor) {
+		this.autor = autor;
+	}
 }

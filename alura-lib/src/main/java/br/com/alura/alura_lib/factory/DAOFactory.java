@@ -12,16 +12,16 @@ import br.com.alura.alura_lib.dao.DAO;
 @SuppressWarnings("unchecked")
 public class DAOFactory {
 
-    @Inject
-    private EntityManager manger;
+	@Inject
+	private EntityManager manger;
 
-    @Produces
-    public <T> DAO<T> factory(InjectionPoint point) {
-
-        ParameterizedType type = (ParameterizedType) point.getType();
-
-        Class<T> classe = (Class<T>) type.getActualTypeArguments()[0];
-        return new DAO<T>(classe, manger);
-    }
-
+	@Produces
+	public <T> DAO<T> factory(InjectionPoint point){
+		
+		ParameterizedType type = (ParameterizedType) point.getType();
+		
+		Class<T> classe = (Class<T>) type.getActualTypeArguments()[0];
+		return new DAO<T>(classe, manger);
+	}
+	
 }
