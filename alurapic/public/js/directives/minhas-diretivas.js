@@ -17,7 +17,7 @@ angular.module('minhasDiretivas', [])
      */
     
     ddo.scope = {
-        titulo: '@' 
+        titulo: '@'
     }
     /**
      * Quando for o mesmo nome do atributo, basta apenas colocar o @, 
@@ -28,3 +28,17 @@ angular.module('minhasDiretivas', [])
 
     return ddo;
 })
+.directive('minhaFoto', function(){
+    var ddo = {};
+
+    ddo.restrict = "AE";
+    
+    ddo.scope = {
+        titulo: '@',
+        url: '@' 
+    }
+    
+    ddo.templateUrl = 'js/directives/minha-foto.html';
+
+    return ddo;
+});
