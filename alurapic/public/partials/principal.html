@@ -13,21 +13,15 @@
     <input class="form-control" placeholder="filtrar pelo título da foto" ng-model="filtro" ng-model-options="{ debounce: 500 }">
 </div>
 
-<!-- código anterior omitido -->
 <div class="row">
     <meu-painel class="col-md-2 painel-animado" ng-repeat="foto in fotos | filter: filtro" titulo="{{foto.titulo}}">
         <minha-foto url="{{foto.url}}" titulo="{{foto.titulo}}">
         </minha-foto>
 
-        <!-- novidade aqui! -->
         <a class="btn btn-primary btn-block" href="/fotos/edit/{{foto._id}}">
             Editar
         </a>
-
-        <button class="btn btn-danger btn-block" 
-            ng-click="remover(foto)">
-            Remover
-        </button>
+        <meu-botao-perigo nome="Remover" acao="remover(foto)"></meu-botao-perigo>
 
     </meu-painel>
 </div>
