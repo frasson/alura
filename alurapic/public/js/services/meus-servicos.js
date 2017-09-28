@@ -7,13 +7,21 @@ angular.module('meusServicos', ['ngResource'])
             }
         });
 })
-.factory("cadastroDeFotos", function(recursoFoto, $q) {
+.factory("cadastroDeFotos", function(recursoFoto, $q, $rootScope) {
+
+        // novidade
+        var evento = 'fotoCadastrada';
+
         var service = {};
         service.cadastrar = function(foto) {
             return $q(function(resolve, reject) {
 
                 if(foto._id) {
                     recursoFoto.update({fotoId: foto._id}, foto, function() {
+
+                        // novidade
+                        $rootScope.$broadcast(evento);
+
                         resolve({
                             mensagem: 'Foto ' + foto.titulo + ' atualizada com sucesso',
                             inclusao: false
@@ -27,6 +35,10 @@ angular.module('meusServicos', ['ngResource'])
 
                 } else {
                      recursoFoto.save(foto, function() {
+
+                        // novidade
+                        $rootScope.$broadcast(evento);
+
                         resolve({
                             mensagem: 'Foto ' + foto.titulo + ' incluída com sucesso',
                             inclusao: true
@@ -41,4 +53,4 @@ angular.module('meusServicos', ['ngResource'])
             });
         };
         return service;
-    });    
+    });
