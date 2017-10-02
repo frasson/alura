@@ -1,0 +1,25 @@
+{
+  "name": "topcasafina-arquitetura",
+  "homepage": "https://github.com/frasson/alura",
+  "description": "Curso de bootstrap - alura",
+  "main": "index.html",
+  "keywords": [
+    "bootstrap",
+    "arquitetura"
+  ],
+  "authors": [
+    "David Frasson Junior"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3"
+  }
+}
