@@ -29,11 +29,11 @@ public class VerificarFila {
 		
 		Enumeration<?> msgs = browser.getEnumeration();
 		if ( !msgs.hasMoreElements() ) { 
-		    System.out.println("No messages in queue");
+		    System.out.println("Sem mensagens na fila");
 		} else { 
 		    while (msgs.hasMoreElements()) { 
 		        Message tempMsg = (Message)msgs.nextElement(); 
-		        System.out.println("Message: " + tempMsg); 
+		        System.out.println("Mensagem: " + tempMsg); 
 		    }
 		}		
 
