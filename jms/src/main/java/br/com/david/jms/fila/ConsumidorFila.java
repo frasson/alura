@@ -1,4 +1,4 @@
-package br.com.david.jms;
+package br.com.david.jms.fila;
 
 import java.util.Scanner;
 
@@ -13,7 +13,7 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 
-public class TesteConsumidor {
+public class ConsumidorFila {
 	public static void main(String[] args) throws Exception {
 
 		/* Inicio da inicialização */

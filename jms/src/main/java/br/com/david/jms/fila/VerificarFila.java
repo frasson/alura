@@ -1,4 +1,4 @@
-package br.com.david.jms;
+package br.com.david.jms.fila;
 
 import java.util.Enumeration;
 

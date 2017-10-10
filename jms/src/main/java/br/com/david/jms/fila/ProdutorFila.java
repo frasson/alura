@@ -1,4 +1,4 @@
-package br.com.david.jms;
+package br.com.david.jms.fila;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -8,7 +8,7 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 
-public class TesteProdutor {
+public class ProdutorFila {
 	public static void main(String[] args) throws Exception {
 
 		/* Inicio da inicialização */
