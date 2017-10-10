@@ -9,15 +9,19 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
 import javax.naming.InitialContext;
 
-public class ConsumidorTopico {
+import br.com.david.jms.modelo.Pedido;
+
+public class ObjectSubscriber {
 
     @SuppressWarnings("resource")
     public static void main(String[] args) throws Exception {
+    	System.setProperty("org.apache.activemq.SERIALIZABLE_PACKAGES","*");
 
         InitialContext context = new InitialContext();
         ConnectionFactory factory = (ConnectionFactory) context.lookup("ConnectionFactory");
@@ -36,10 +40,11 @@ public class ConsumidorTopico {
             
             public void onMessage(Message message) {
 
-                TextMessage textMessage = (TextMessage)message;
+                ObjectMessage objectMessage = (ObjectMessage)message;
 
                 try {
-                    System.out.println(textMessage.getText());
+                	Pedido pedido = (Pedido)objectMessage.getObject();
+                    System.out.println(pedido.getCodigo());
                 } catch (JMSException e) {
                     e.printStackTrace();
                 }
@@ -48,7 +53,7 @@ public class ConsumidorTopico {
         });
 
 
-        new Scanner(System.in).nextLine();
+       new Scanner(System.in).nextLine();
 
         session.close();
         connection.close();

@@ -1,4 +1,4 @@
-package br.com.david.jms.fila;
+package br.com.david.jms.topico;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -8,7 +8,10 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 
-public class ProdutorFila {
+import br.com.david.jms.modelo.Pedido;
+import br.com.david.jms.modelo.PedidoFactory;
+
+public class ObjectPublisher {
 	public static void main(String[] args) throws Exception {
 
 		/* Inicio da inicialização */
@@ -19,15 +22,15 @@ public class ProdutorFila {
 
 		// arg1 = transação
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-		Destination fila = (Destination) context.lookup("financeiro");		
+		Destination topico = (Destination) context.lookup("loja");		
 		/* Fim da inicialização */
 
-		MessageProducer producer = session.createProducer(fila);
+		MessageProducer producer = session.createProducer(topico);
 		
-		for (int i = 0; i < 1000; i++) {
-			Message message = session.createTextMessage("<pedido><id>" + i + "</id></pedido>");
-			producer.send(message);
-		}		
+		Pedido pedido = new PedidoFactory().geraPedidoComValores();
+		
+		Message message = session.createObjectMessage(pedido);
+		producer.send(message);		
 
 		session.close();
 		connection.close();

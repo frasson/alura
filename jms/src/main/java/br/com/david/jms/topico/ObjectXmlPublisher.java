@@ -1,5 +1,7 @@
 package br.com.david.jms.topico;
 
+import java.io.StringWriter;
+
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -7,8 +9,13 @@ import javax.jms.Message;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.naming.InitialContext;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
-public class ProdutorTopico {
+import br.com.david.jms.modelo.Pedido;
+import br.com.david.jms.modelo.PedidoFactory;
+
+public class ObjectXmlPublisher {
 	public static void main(String[] args) throws Exception {
 
 		/* Inicio da inicialização */
@@ -24,10 +31,22 @@ public class ProdutorTopico {
 
 		MessageProducer producer = session.createProducer(topico);
 		
-		for (int i = 0; i < 10; i++) {
-			Message message = session.createTextMessage("<topico><id>" + i + "</id></topico>");
-			producer.send(message);
-		}		
+		Pedido pedido = new PedidoFactory().geraPedidoComValores();
+		
+		JAXBContext jaxbContext = JAXBContext.newInstance(Pedido.class);
+		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();		
+		
+		// output pretty printed
+		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+		StringWriter writer = new StringWriter();
+		jaxbMarshaller.marshal(pedido, writer);
+		String pedidoXml = writer.toString();
+		
+		System.out.println(pedidoXml);
+		
+		Message message = session.createTextMessage(pedidoXml);
+		producer.send(message);		
 
 		session.close();
 		connection.close();

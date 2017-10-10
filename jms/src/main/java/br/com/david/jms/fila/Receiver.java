@@ -13,7 +13,7 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 
-public class ConsumidorFila {
+public class Receiver {
 	public static void main(String[] args) throws Exception {
 
 		/* Inicio da inicialização */
